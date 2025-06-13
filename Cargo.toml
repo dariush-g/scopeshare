@@ -4,8 +4,16 @@ version = "0.1.0"
 edition = "2024"
 authors = ["Dariush Ghassemieh dariush@ghassemieh.com"]
 description = "Scoped, thread-safe shared value wrapper"
-repository = "MIT OR Apache-2.0"
-keywords = ["shared-state", "rwlock", "concurrency", "thread-safe", "scoped"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/dariush-g/scopeshare.git"
+keywords = [
+    "shared-state",
+    "rwlock",
+    "concurrency",
+    "thread-safe",
+    "scoped",
+    "sync",
+]
 categories = ["concurrency", "data-structures"]
 readme = "README.md"
 exclude = [".vscode", "target", "*.bak", "*.swp"]
@@ -19,7 +27,4 @@ serde = ["dep:serde"]
 #sync = []
 
 [dependencies]
-serde = {version = "1.0.219", features = ["derive"], optional = true}
-
-
-
+serde = { version = "1.0.219", features = ["derive"], optional = true }
