@@ -12,8 +12,9 @@ impl<T> SyncShare<T> {
     /// Creates a new 'SyncShare' wrapping the given value
     ///
     /// # Example:
-    /// ```
-    /// let shared = SyncShare::new(42)
+    /// ```rust
+    /// use scopeshare::syncshare::SyncShare;
+    /// let shared = SyncShare::new(42);
     /// ```
     ///
     pub fn new(value: T) -> Self {
@@ -28,7 +29,9 @@ impl<T> SyncShare<T> {
     /// Panics if the rwlock becomes poisoned
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::syncshare::SyncShare;
+    /// let shared = SyncShare::new(42);
     /// shared.with(|val| print!("{val}"));
     /// ```
     ///
@@ -43,7 +46,9 @@ impl<T> SyncShare<T> {
     /// Panics if the rwlock becomes poisoned
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::syncshare::SyncShare;
+    /// let shared = SyncShare::new(42);
     /// shared.with_mut(|val| *val += 1);
     /// ```
     ///
@@ -55,7 +60,9 @@ impl<T> SyncShare<T> {
     /// Attempts to provide immutable access. Returns 'None' if the lock is unavailable
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::syncshare::SyncShare;
+    /// let shared = SyncShare::new(42);
     /// if let Some(val) = shared.try_with(|v| *v) {
     ///     println!("value: {val}")
     /// }
@@ -68,7 +75,9 @@ impl<T> SyncShare<T> {
     /// Attempts to provide mutable access. Returns 'None' if the lock is unavailable
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::syncshare::SyncShare;
+    /// let shared = SyncShare::new(vec![1, 2, 3]);
     /// if let Some(_) = shared.try_with_mut(|v| v.push(10)) {
     ///     // successfully modified
     /// }
@@ -81,7 +90,9 @@ impl<T> SyncShare<T> {
     /// Clones and returns the inner value. Requires 'T: Clone'.
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::syncshare::SyncShare;
+    /// let shared = SyncShare::new(42);
     /// let snapshot = shared.snapshot();
     /// ```
     ///
@@ -95,7 +106,9 @@ impl<T> SyncShare<T> {
     /// Replaces the inner value with a new one.
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::syncshare::SyncShare;
+    /// let shared = SyncShare::new(42);
     /// shared.replace(100)
     /// ```
     pub fn replace(&self, new: T) {
@@ -108,7 +121,9 @@ impl<T> SyncShare<T> {
     /// Panics if the lock is poisoned
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::syncshare::SyncShare;
+    /// let shared = SyncShare::new(42);
     /// let guard = shared.borrow();
     /// println!("Value: {}", *guard);
     /// ```
@@ -123,7 +138,9 @@ impl<T> SyncShare<T> {
     /// Panics if the lock is poisoned
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::syncshare::SyncShare;
+    /// let shared = SyncShare::new(42);
     /// let mut guard = shared.borrow_mut();
     /// *guard += 1;
     /// ```

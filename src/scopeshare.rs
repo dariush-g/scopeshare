@@ -14,7 +14,8 @@ impl<T> ScopeShare<T> {
     /// Creates a new 'ScopeShare' wrapping the given value.
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::scopeshare::ScopeShare;
     /// let shared = ScopeShare::new(42);
     /// ```
     ///
@@ -30,7 +31,9 @@ impl<T> ScopeShare<T> {
     /// Panics at runtime if a mutable borrow occurs
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::scopeshare::ScopeShare;
+    /// let shared = ScopeShare::new(42);
     /// shared.with(|val| print!("{val}"))
     /// ```
     ///
@@ -46,7 +49,9 @@ impl<T> ScopeShare<T> {
     /// Panics at runtime if another borrow is active
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::scopeshare::ScopeShare;
+    /// let shared = ScopeShare::new(42);
     /// shared.with_mut(|val| *val += 1);
     /// ```
     ///
@@ -64,7 +69,8 @@ impl<T> ScopeShare<T> {
     /// Panics at runtime if any other borrow is currently active.
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::scopeshare::ScopeShare;
     /// let shared = ScopeShare::new(42);
     /// let mut guard = shared.borrow_mut();
     /// *guard += 1;
@@ -84,7 +90,8 @@ impl<T> ScopeShare<T> {
     /// Panics at runtime if a mutable borrow is already active
     ///
     /// # Example
-    /// ```
+    /// ```rust
+    /// use scopeshare::scopeshare::ScopeShare;
     /// let shared = ScopeShare::new(42);
     /// let guard = shared.borrow();
     /// println!("Value: {}", *guard);
