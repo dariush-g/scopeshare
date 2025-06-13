@@ -14,9 +14,9 @@ impl<T> ScopeShare<T> {
     /// Creates a new 'ScopeShare' wrapping the given value.
     ///
     /// # Example
-    /// '''
+    /// ```
     /// let shared = ScopeShare::new(42);
-    /// '''
+    /// ```
     ///
     pub fn new(value: T) -> Self {
         Self {
@@ -30,9 +30,9 @@ impl<T> ScopeShare<T> {
     /// Panics at runtime if a mutable borrow occurs
     ///
     /// # Example
-    /// '''
+    /// ```
     /// shared.with(|val| print!("{val}"))
-    /// '''
+    /// ```
     ///
     #[track_caller]
     pub fn with<R>(&self, f: impl FnOnce(&T) -> R) -> R {
@@ -46,9 +46,9 @@ impl<T> ScopeShare<T> {
     /// Panics at runtime if another borrow is active
     ///
     /// # Example
-    /// '''
+    /// ```
     /// shared.with_mut(|val| *val += 1);
-    /// '''
+    /// ```
     ///
     #[track_caller]
     pub fn with_mut<R>(&self, f: impl FnOnce(&mut T) -> R) -> R {
@@ -64,11 +64,11 @@ impl<T> ScopeShare<T> {
     /// Panics at runtime if any other borrow is currently active.
     ///
     /// # Example
-    /// '''
+    /// ```
     /// let shared = ScopeShare::new(42);
     /// let mut guard = shared.borrow_mut();
     /// *guard += 1;
-    /// '''
+    /// ```
     ///
     #[track_caller]
     pub fn borrow_mut(&self) -> ScopeRefMut<'_, T> {
@@ -84,11 +84,11 @@ impl<T> ScopeShare<T> {
     /// Panics at runtime if a mutable borrow is already active
     ///
     /// # Example
-    /// '''
+    /// ```
     /// let shared = ScopeShare::new(42);
     /// let guard = shared.borrow();
     /// println!("Value: {}", *guard);
-    /// '''
+    /// ```
     ///
     #[track_caller]
     pub fn borrow(&self) -> ScopeRef<'_, T> {

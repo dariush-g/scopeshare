@@ -12,9 +12,9 @@ impl<T> SyncShare<T> {
     /// Creates a new 'SyncShare' wrapping the given value
     ///
     /// # Example:
-    /// '''
+    /// ```
     /// let shared = SyncShare::new(42)
-    /// '''
+    /// ```
     ///
     pub fn new(value: T) -> Self {
         Self {
@@ -24,13 +24,13 @@ impl<T> SyncShare<T> {
 
     /// Provides immutable access to the inner value via a scoped closure
     ///
-    /// #Panics
+    /// # Panics
     /// Panics if the rwlock becomes poisoned
     ///
     /// # Example
-    /// '''
+    /// ```
     /// shared.with(|val| print!("{val}"));
-    /// '''
+    /// ```
     ///
     pub fn with<R>(&self, f: impl FnOnce(&T) -> R) -> R {
         let guard = self.inner.read().unwrap();
@@ -43,9 +43,9 @@ impl<T> SyncShare<T> {
     /// Panics if the rwlock becomes poisoned
     ///
     /// # Example
-    /// '''
+    /// ```
     /// shared.with_mut(|val| *val += 1);
-    /// '''
+    /// ```
     ///
     pub fn with_mut<R>(&self, f: impl FnOnce(&mut T) -> R) -> R {
         let mut guard = self.inner.write().unwrap();
@@ -55,11 +55,11 @@ impl<T> SyncShare<T> {
     /// Attempts to provide immutable access. Returns 'None' if the lock is unavailable
     ///
     /// # Example
-    /// '''
+    /// ```
     /// if let Some(val) = shared.try_with(|v| *v) {
     ///     println!("value: {val}")
     /// }
-    /// '''
+    /// ```
     ///
     pub fn try_with<R>(&self, f: impl FnOnce(&T) -> R) -> Option<R> {
         self.inner.try_read().ok().map(|guard| f(&*guard))
@@ -68,11 +68,11 @@ impl<T> SyncShare<T> {
     /// Attempts to provide mutable access. Returns 'None' if the lock is unavailable
     ///
     /// # Example
-    /// '''
+    /// ```
     /// if let Some(_) = shared.try_with_mut(|v| v.push(10)) {
     ///     // successfully modified
     /// }
-    /// '''
+    /// ```
     ///
     pub fn try_with_mut<R>(&self, f: impl FnOnce(&mut T) -> R) -> Option<R> {
         self.inner.try_write().ok().map(|mut guard| f(&mut *guard))
@@ -81,9 +81,9 @@ impl<T> SyncShare<T> {
     /// Clones and returns the inner value. Requires 'T: Clone'.
     ///
     /// # Example
-    /// '''
+    /// ```
     /// let snapshot = shared.snapshot();
-    /// '''
+    /// ```
     ///
     pub fn snapshot(&self) -> T
     where
@@ -95,9 +95,9 @@ impl<T> SyncShare<T> {
     /// Replaces the inner value with a new one.
     ///
     /// # Example
-    /// '''
+    /// ```
     /// shared.replace(100)
-    /// '''
+    /// ```
     pub fn replace(&self, new: T) {
         self.with_mut(|val| *val = new);
     }
@@ -108,10 +108,10 @@ impl<T> SyncShare<T> {
     /// Panics if the lock is poisoned
     ///
     /// # Example
-    /// '''
+    /// ```
     /// let guard = shared.borrow();
     /// println!("Value: {}", *guard);
-    /// '''
+    /// ```
     ///
     pub fn borrow(&self) -> RwLockReadGuard<'_, T> {
         self.inner.read().unwrap()
@@ -123,9 +123,10 @@ impl<T> SyncShare<T> {
     /// Panics if the lock is poisoned
     ///
     /// # Example
-    /// '''
+    /// ```
     /// let mut guard = shared.borrow_mut();
     /// *guard += 1;
+    /// ```
     ///
     pub fn borrow_mut(&self) -> RwLockWriteGuard<'_, T> {
         self.inner.write().unwrap()
